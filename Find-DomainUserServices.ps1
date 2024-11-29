@@ -1,6 +1,6 @@
 ### Load the Active Directory Powershell Commands (required)
 Import-Module ActiveDirectory
-### update the below with the proper values for your environment
+### update the below with the proper values for your environment Run Selection (F8)
 $domain="*domain*"
 $serviceFile="c:\scripts\services.csv"
 $exceptionFile="c:\scripts\exeptions.csv"
@@ -11,8 +11,10 @@ if (test-path $exceptionFile) {Clear-Content $exceptionFile}
 ##initialize array
 $domainservices=@()
 
-## Query AD for all computer objects with "server" in the Operating System
+## Query AD for all computer objects with "server" in the Operating System -ForeGroundColor $color
 $servers=Get-ADComputer -LDAPFilter "(&(objectcategory=computer)(OperatingSystem=*server*))"
+Write-Host "A total of" $services.count "services were evaluated"
+Write-Host -BackGroundColor Gray -ForeGroundColor Black -Object "Script Execution is Complete"
 
 $i=0
 
@@ -35,3 +37,5 @@ foreach ($server in $servers) {
 
  ## Output results to CSV file
  $domainservices | Export-Csv -Path $serviceFile -NoTypeInformation
+ Run Script (F5)
+ 
